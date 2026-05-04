@@ -1,0 +1,20 @@
+services:
+  xray-reality:
+    build: .
+    container_name: xray-reality
+    restart: always
+    network_mode: host
+    mem_limit: 512m
+    volumes:
+      - ./data:/data
+
+    # 可选：自定义配置（不填则使用默认值）
+    # environment:
+    #   - PORT=443
+    #   - SNI=www.apple.com
+
+    healthcheck:
+      test: ["CMD", "pidof", "xray"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
