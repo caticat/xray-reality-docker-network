@@ -24,6 +24,9 @@ curl -fsSL https://get.docker.com | bash
 ### 第二步：上传文件并启动
 
 ```bash
+# 创建对应文件夹
+mkdir -p /root/xray/
+
 # 上传 docker/ 目录到 VPS
 scp -r docker/ root@your-vps-ip:/root/xray/
 
@@ -151,6 +154,30 @@ docker compose up -d
 docker compose logs | grep "vless://"
 # 重新导入新 URL 到客户端
 ```
+
+---
+
+## 故障排查
+
+### 客户端连接超时
+
+节点日志正常（显示 `Xray started`）但客户端超时，通常是防火墙拦截了端口。
+
+```bash
+# 1. 确认 xray 正在监听端口
+ss -tlnp | grep 443
+
+# 2. 检查防火墙状态
+ufw status
+```
+
+如果 ufw 是 active 但 443 未放行，执行：
+
+```bash
+ufw allow 443/tcp
+```
+
+> Vultr 等服务商的 Ubuntu 镜像默认启用 ufw，只开放 22（SSH），需手动放行代理端口。
 
 ---
 
