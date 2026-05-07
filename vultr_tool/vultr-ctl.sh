@@ -208,6 +208,11 @@ set -e
 
 sleep 10
 
+# 开启 BBR（提升跨境链路利用率）
+echo 'net.core.default_qdisc=fq' >> /etc/sysctl.conf
+echo 'net.ipv4.tcp_congestion_control=bbr' >> /etc/sysctl.conf
+sysctl -p
+
 curl -fsSL https://get.docker.com | bash
 
 ufw allow 22/tcp
