@@ -31,8 +31,11 @@ fi
 source "$CONFIG_FILE"
 
 # 环境变量（支持运行时自定义）
+# SNI: Reality 伪装目标站点（需支持 TLS 1.3 + HSTS，不重定向到其他域名）
+# 备选：github.com | www.apple.com | gateway.icloud.com | www.microsoft.com |
+#       learn.microsoft.com | www.samsung.com | dl.google.com | amazon.com
 PORT=${PORT:-443}
-SNI=${SNI:-www.microsoft.com}
+SNI=${SNI:-github.com}
 DEST="${SNI}:${PORT}"
 
 # 生成 Xray config.json

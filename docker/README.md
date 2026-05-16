@@ -79,16 +79,21 @@ docker compose logs | grep "vless://"
 ```yaml
 environment:
   - PORT=443
-  - SNI=www.apple.com
+  - SNI=github.com
 ```
 
-推荐站点（大厂、TLS 稳定）：
+伪装站点需满足：支持 TLS 1.3、启用 HSTS、不重定向到其他域名。
 
-| 站点                      |
-|--------------------------|
-| `www.microsoft.com`（默认）|
-| `www.apple.com`          |
-| `www.cloudflare.com`     |
+| 站点 | 特点 |
+|------|------|
+| `github.com`（默认） | 全球开发者高频访问，流量特征最自然 |
+| `www.apple.com` | Apple 官网，TLS 1.3 稳定 |
+| `gateway.icloud.com` | iCloud 服务，低调不显眼 |
+| `www.microsoft.com` | 微软官网，大厂稳定 |
+| `learn.microsoft.com` | 微软文档站，开发者常用 |
+| `www.samsung.com` | 三星全球站，访问量大 |
+| `dl.google.com` | Google 下载站，国内也常访问 |
+| `amazon.com` | 亚马逊，流量巨大 |
 
 修改后重启生效：`docker compose restart`
 
